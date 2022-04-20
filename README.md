@@ -77,6 +77,9 @@ We don't currently show the date of travel, only the times. So if a user searche
 - Integration tests (Using Cypress)
 - Give some more thought to the design - currently it is pretty basic and could do with a lot of improvement
 - Test it on older browsers if that is a requirement
+- Better error handling
+- Internationalisation
+- Analytics
 
 ## Resources
 
