@@ -20,7 +20,7 @@ In this project, I have used Next JS to SSR the page. (To be honest, in this exa
 
 I have used [MUI](https://mui.com/) as a design system. Other than the main reason of getting the project off the ground quickly, there are a couple of other reasons for this:
 
-- I really like the structure they use with their theming and philosophy. This makes overriding styles and global styles very simple.
+- I really like the structure they use with their theming and philosophy. This makes overriding styles and global styles very simple. (See theme file for the overrides to the defaults that I used)
 - They have addressed a lot of accessibility requirements out of the box which is useful for users who require screen readers.
 - The documentation is really good.
 - They have some really useful prebuilt components like autocomplete.
