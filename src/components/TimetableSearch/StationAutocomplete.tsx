@@ -1,6 +1,6 @@
 import { Autocomplete } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { useStationAutocomplete } from "../hooks/useStationAutocomplete";
+import { useStationAutocomplete } from "../../hooks/useStationAutocomplete";
 
 const autocompleteStyles = { width: "100%", marginTop: 6 };
 
@@ -25,12 +25,19 @@ export const StationAutocomplete = (props: StationAutocompleteProps) => {
       id={id}
       options={autoCompleteOptions}
       sx={autocompleteStyles}
+      onChange={(evt, newValue) => {
+        if (newValue) {
+          setStation(newValue.label);
+        }
+      }}
       renderInput={(params) => (
         <TextField
           {...params}
           value={station}
           onChange={onInputChange}
           label={label}
+          required
+          helperText="Type 3 characters to start autocomplete"
         />
       )}
     />

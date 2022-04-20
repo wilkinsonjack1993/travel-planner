@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
+import MuiStepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 
@@ -8,19 +8,20 @@ interface StagesProps {
   activeStep: number;
 }
 
-const StagesStepper = (props: StagesProps) => {
+// Generic stepper component
+const Stepper = (props: StagesProps) => {
   const { activeStep, steps } = props;
   return (
     <Box sx={{ width: "100%" }}>
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
+      <MuiStepper nonLinear activeStep={activeStep}>
+        {steps.map((label) => (
           <Step key={label} completed={activeStep === steps.length - 1}>
             <StepButton color="inherit">{label}</StepButton>
           </Step>
         ))}
-      </Stepper>
+      </MuiStepper>
     </Box>
   );
 };
 
-export default StagesStepper;
+export default Stepper;

@@ -1,12 +1,13 @@
 import { useTheme } from "@emotion/react";
 import { Box, Theme, Typography } from "@mui/material";
-import { TimetableSearchForm } from "./TimetableSearchForm";
-import StagesStepper from "./Stepper";
+import { TimetableSearchForm } from "./TimetableSearch/TimetableSearchForm";
+import StagesStepper from "./DesignSystem/Stepper";
 import { useTimetableContext } from "./TimetableSearchProvider";
-import { TimetableResults } from "./TimetableResults";
+import { TimetableResults } from "./TimetableResults/TimetableResults";
 
 const STEPS = ["Find times", "Search Results"];
 
+// Component that controls the step through process of searching the timetable.
 const TimetableSearch = () => {
   const theme = useTheme() as Theme;
 
@@ -31,8 +32,7 @@ const TimetableSearch = () => {
         Transport Planner
       </Typography>
       <StagesStepper steps={STEPS} activeStep={activeStep} />
-      {/* {activeStep === 0 ? <TimetableSearchForm /> : <TimetableResults />} */}
-      <TimetableResults />
+      {activeStep === 0 ? <TimetableSearchForm /> : <TimetableResults />}
     </Box>
   );
 };

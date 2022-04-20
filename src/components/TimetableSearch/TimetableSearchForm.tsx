@@ -10,7 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { StationAutocomplete } from "./StationAutocomplete";
 import { useTheme } from "@emotion/react";
-import { useTimetableContext } from "./TimetableSearchProvider";
+import { useTimetableContext } from "../TimetableSearchProvider";
 
 export type DateType = "now" | "arrive" | "depart";
 
@@ -27,6 +27,12 @@ export const TimetableSearchForm = () => {
     submitSearch,
     loading,
   } = useTimetableContext();
+
+  // Disable button if we don't have valid data
+  const isButtonDisabled =
+    !originStation.length ||
+    !destinationStation.length ||
+    (dateType !== "now" && !dateTime);
 
   const theme = useTheme() as Theme;
   return (
@@ -79,13 +85,17 @@ export const TimetableSearchForm = () => {
           disabled={dateType === "now"}
           label="Time"
           value={dateTime}
+          inputFormat="dd/MM/yyyy HH:mm"
           minDateTime={new Date()}
           onChange={(newDate) => setDateTime(newDate)}
           renderInput={(params) => <TextField {...params} />}
         />
+        {dateType !== "now" && (
+          <Typography variant="caption">* Date is required</Typography>
+        )}
 
         <Button
-          disabled={loading}
+          disabled={loading || isButtonDisabled}
           sx={{ marginTop: 6, borderRadius: theme.shape.borderRadius }}
           type="submit"
           aria-label="Search"

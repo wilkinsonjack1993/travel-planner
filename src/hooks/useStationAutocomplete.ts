@@ -18,6 +18,7 @@ export const useStationAutocomplete = (
 
   const [stationResults, setStationResults] = useState<Station[] | null>(null);
 
+  // Effect that will search for autocomplete results using the API
   useEffect(() => {
     // Only start auto complete after 3 characters to prevent spamming of API
     if (stationSearchString.length < 3) {
@@ -25,19 +26,23 @@ export const useStationAutocomplete = (
     }
 
     // TODO - we could throttle this API call to prevent it being called on every character typed
-    fetch(`${LOCATIONS_URL}?query=${stationSearchString}&type=station`)
+    fetch(`${LOCATIONS_URL}?query=${stationSearchString}`)
       .then((res) => res.json())
       .then((res: any) => {
         setStationResults(res.stations);
       })
       .catch((err) => {
         // TODO - handle error
-        console.log(err);
+        console.error(err);
       });
   }, [stationSearchString]);
 
+  // Map results to autocomplete options
   const autoCompleteOptions = stationResults
-    ? stationResults.map((station) => station.name)
+    ? stationResults.map((station) => ({
+        id: station.name,
+        label: station.name,
+      }))
     : [];
 
   return {

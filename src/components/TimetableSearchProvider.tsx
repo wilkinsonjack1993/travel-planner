@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import {
   createContext,
   FormEvent,
@@ -5,35 +6,8 @@ import {
   useContext,
   useState,
 } from "react";
-import { DateType } from "./TimetableSearchForm";
-
-interface Station {
-  location: {
-    id: string;
-    name: string;
-  };
-  platform: string;
-  station: {
-    id: string;
-    name: string;
-  };
-  arrivalTimestamp: number | null;
-  departureTimestamp: number | null;
-}
-
-export interface Section {
-  arrival: Station;
-  departure: Station;
-  location: {
-    name: String;
-  };
-}
-
-export interface Connection {
-  from: Station;
-  to: Station;
-  sections: Section[];
-}
+import { Connection } from "./Types";
+import { DateType } from "./TimetableSearch/TimetableSearchForm";
 
 interface TimetableSearchContextType {
   originStation: string;
@@ -54,6 +28,7 @@ interface TimetableSearchContextType {
   activeStep: number;
 }
 
+// Context for controlling the step through process and searching of the timetable.
 const TimetableSearchContext = createContext<TimetableSearchContextType>(
   {} as TimetableSearchContextType
 );
@@ -69,17 +44,15 @@ const useTimetableSearch = () => {
   const [loading, setLoading] = useState(false);
   const [connections, setConnections] = useState<Connection[]>([]);
 
-  const validate = () => {
-    return true;
-  };
-
+  // Search the api for connections between stations.
   const submitSearch = async (evt: FormEvent) => {
     evt.preventDefault();
-    if (!validate()) return;
     setLoading(true);
 
-    const date = "2022-05-01";
-    const time = "17:27";
+    // Get search date
+    const dateTimeSearch = dateType === "now" ? new Date() : (dateTime as Date);
+    const date = format(dateTimeSearch, "yyyy-MM-dd");
+    const time = format(dateTimeSearch, "HH:mm");
 
     fetch(
       `http://transport.opendata.ch/v1/connections?from=${originStation}&to=${destinationStation}&date=${date}&time=${time}&isArrivalTime=${
@@ -88,17 +61,18 @@ const useTimetableSearch = () => {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.connections);
         setConnections(res.connections);
+        // Step to results
         setActiveStep(1);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         throw err;
       });
   };
 
+  // Reset everything.
   const clearAll = () => {
     setOriginStation("");
     setDestinationStation("");
