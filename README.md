@@ -2,10 +2,14 @@
 
 ## Getting Started
 
+Requirements (other versions may be usable but were not tested):
+Node version: 16
+npm version: 8
+
 Checkout the repository then install:
 
 ```
-npm install
+npm ci
 ```
 
 To run locally:
@@ -72,6 +76,7 @@ We don't currently show the date of travel, only the times. So if a user searche
 - Tests (using react testing library)
 - Integration tests (Using Cypress)
 - Give some more thought to the design - currently it is pretty basic and could do with a lot of improvement
+- Test it on older browsers if that is a requirement
 
 ## Resources
 
