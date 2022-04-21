@@ -66,6 +66,8 @@ While I have made it mobile responsive, the mobile view looks cramped and could 
 
 We could definitely display more information to the user, such as the mode of transport for each section.
 
+It would be nice to have a 'show earlier trains' and a 'show later trains' option to scroll through further options.
+
 The lack of a back button to go back to step 1 is annoying and should be added.
 
 We don't currently show the date of travel, only the times. So if a user searched for a train at 11pm today, the results may show times tomorrow morning which would be confusing to the user without showing them the date.
